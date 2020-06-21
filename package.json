@@ -1,0 +1,34 @@
+{
+  "name": "getfastpass-web",
+  "version": "1.0.0",
+  "description": "POC for scheduling store visits",
+  "main": "handler.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "lint": "./node_modules/.bin/eslint --fix --ignore-path .gitignore .",
+    "prettier": "./node_modules/.bin/prettier ."
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "axios": "^0.19.2",
+    "bulma": "^0.8.2",
+    "handlebars": "^4.7.6",
+    "moment": "^2.25.1",
+    "moment-timezone": "^0.5.28",
+    "redis": "^3.0.2",
+    "redis-json": "^3.2.1",
+    "uglifycss": "0.0.29"
+  },
+  "devDependencies": {
+    "@silvermine/serverless-plugin-cloudfront-lambda-edge": "2.1.1",
+    "eslint": "^7.2.0",
+    "jsdoc": "^3.6.4",
+    "prettier": "^2.0.5",
+    "serverless": "^1.69.0",
+    "serverless-api-cloudfront": "^0.9.5",
+    "serverless-dotenv-plugin": "^2.4.2",
+    "serverless-offline": "^6.1.4",
+    "serverless-plugin-optimize": "^4.1.4-rc.1"
+  }
+}

@@ -1,0 +1,95 @@
+service: getfastpass
+
+plugins:
+  # - serverless-plugin-optimize
+  - serverless-dotenv-plugin
+  - serverless-api-cloudfront
+  - serverless-offline
+
+package:
+  individually: true
+
+environment:
+
+provider:
+  name: aws
+  runtime: nodejs12.x
+  profile: ${env:AWS_PROFILE}
+  region: us-east-1
+  timeout: 30
+  environment:
+    IS_OFFLINE: false
+    redisAuth: ${env:REDIS_AUTH}
+    redisPort: ${env:REDIS_PORT}
+    redisHost: ${env:REDIS_HOST}
+    passNinjaApiKey: ${env:PASSNINJA_API_KEY}
+    passninjaAccountId: ${env:PASSNINJA_ACCOUNT_ID}
+custom:
+  vars:
+    domain:
+      prod: "*.getfastpass.com"
+      dev: "*.dev.getfastpass.com"
+    certificate:
+      prod: ${env:PROD_CERT_ARN}
+      dev: ${env:DEV_CERT_ARN}
+  apiCloudFront:
+    domain: ${self:custom.vars.domain.${opt:stage}}
+    certificate: ${self:custom.vars.certificate.${opt:stage}}
+    compress: true
+    cookies: none
+    headers:
+      - x-api-key
+      - x-forwarded-host
+    querystring: all
+    priceClass: PriceClass_100
+    minimumProtocolVersion: TLSv1
+
+functions:
+  renderBusinessTimes:
+    handler: lambdas/renderBusinessTimes.handler
+    events:
+      - http:
+          path: /
+          method: get
+  createPass:
+    handler: lambdas/createPass.handler
+    events:
+      - http:
+          path: /pass
+          method: get
+  resetTimes:
+    handler: lambdas/resetTimes.handler
+    events:
+      - http:
+          path: /times
+          method: delete
+  receiveLog:
+    handler: lambdas/receiveLog.handler
+    events:
+      - http:
+          path: /log
+          method: post
+  validate:
+    handler: lambdas/validate.handler
+    events:
+      - http:
+          path: /v
+          method: get
+  createLocation:
+    handler: lambdas/createLocation.handler
+    events:
+      - http:
+          path: /locationBasic/
+          method: post
+  createLocationTypeForm:
+    handler: lambdas/createLocationWithTypeForm.handler
+    events:
+      - http:
+          path: /location/
+          method: post
+  sendMessage:
+    handler: lambdas/sendMessage.handler
+    events:
+      - http:
+          path: /message
+          method: post

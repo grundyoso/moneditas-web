@@ -1,0 +1,15 @@
+service: get-fast-pass-web
+
+provider:
+  name: aws
+  runtime: nodejs12.x
+  profile: flomio
+
+distribution:
+  component: '@serverless/aws-cloudfront'
+  inputs:
+    origins:
+      - url: https://vanish.s3.amazonaws.com
+    viewerCertificate: 
+      - acmCertificateArn: 	arn:aws:acm:us-east-1:448311138761:certificate/11107de9-2e10-4a78-9559-58c0e59ddb4d
+        
