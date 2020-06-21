@@ -15,7 +15,7 @@ The frontend was built with Webflow and TypeForm and the backend with [Redis](ht
 If you're new to building web applications you may have trouble following this guide. It's meant for those with medium to advanced experience since we're using a serverless backend built on AWS. 
 
 # License
-Copyright (c) 2020 Moneditas Group, LLC
+Copyright (c) 2020 Richard Grundy
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
